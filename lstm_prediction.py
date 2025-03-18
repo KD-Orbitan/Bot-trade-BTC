@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 import os
-
+tf.keras.mixed_precision.set_global_policy('mixed_float16')
 # Set random seeds for reproducibility
 np.random.seed(42)
 tf.random.set_seed(42)
@@ -60,11 +60,9 @@ class BTCPricePredictor:
     def build_model(self, input_shape):
         """Build LSTM model"""
         model = Sequential([
-            LSTM(128, return_sequences=True, input_shape=input_shape),
+            LSTM(64, return_sequences=True, input_shape=input_shape),
             Dropout(0.2),
-            LSTM(64, return_sequences=True),
-            Dropout(0.2),
-            LSTM(32),
+            LSTM(32, return_sequences=False),
             Dropout(0.2),
             Dense(16, activation='relu'),
             Dense(1)
