@@ -79,7 +79,7 @@ class BTCPricePredictor:
         self.model = model
         return model
     
-    def train_model(self, X_train, y_train, X_val, y_val, epochs=100, batch_size=32):
+    def train_model(self, X_train, y_train, X_val, y_val, epochs=100, batch_size=16):
         """Train the model"""
         # Create directory for model checkpoints
         os.makedirs('models', exist_ok=True)
