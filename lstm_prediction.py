@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Vô hiệu hóa GPU, chỉ dùng CPU
+
 # Set random seeds for reproducibility
 np.random.seed(42)
 tf.random.set_seed(42)
@@ -211,4 +211,4 @@ def main():
     print("\nTraining completed. Check 'plots' directory for visualizations.")
 
 if __name__ == "__main__":
-    main() 
+    main()
