@@ -69,7 +69,7 @@ class BTCPricePredictor:
         ])
         
         model.compile(
-            optimizer=Adam(learning_rate=0.001),
+            optimizer=Adam(learning_rate=0.0001),
             loss='mse',
             metrics=['mae']
         )
