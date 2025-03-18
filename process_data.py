@@ -61,7 +61,7 @@ selected_columns = ["open", "high", "low", "close", "volume",
                     "ATR", "OBV", "MFI"]
 
 # Khởi tạo MinMaxScaler với khoảng [-1,1]
-scaler = MinMaxScaler(feature_range=(-1, 1))
+scaler = MinMaxScaler(feature_range=(0, 1))
 
 # Chuyển đổi dữ liệu sang float trước khi scale
 df[selected_columns] = df[selected_columns].astype(float)
