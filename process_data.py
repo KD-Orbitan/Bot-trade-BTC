@@ -50,7 +50,7 @@ df["OBV"] = ta.obv(df["close"], df["volume"])
 # MFI (14)
 mfi_data = ta.mfi(df["high"], df["low"], df["close"], df["volume"], length=14)
 df["MFI"] = mfi_data.astype(float)
-
+df.dropna(inplace=True)  # Xóa tất cả các dòng chứa NaN
 
 
 ### LƯU FILE ĐÃ XỬ LÝ ###
