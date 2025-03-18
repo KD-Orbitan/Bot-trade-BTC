@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 import os
-tf.keras.mixed_precision.set_global_policy('mixed_float16')
 # Set random seeds for reproducibility
 np.random.seed(42)
 tf.random.set_seed(42)
@@ -60,16 +59,18 @@ class BTCPricePredictor:
     def build_model(self, input_shape):
         """Build LSTM model"""
         model = Sequential([
-            LSTM(64, return_sequences=True, input_shape=input_shape),
+            LSTM(128, return_sequences=True, input_shape=input_shape),
             Dropout(0.2),
-            LSTM(32, return_sequences=False),
+            LSTM(64, return_sequences=True),
+            Dropout(0.2),
+            LSTM(32),
             Dropout(0.2),
             Dense(16, activation='relu'),
             Dense(1)
         ])
         
         model.compile(
-            optimizer=Adam(learning_rate=0.0001),
+            optimizer=Adam(learning_rate=0.001),
             loss='mse',
             metrics=['mae']
         )
@@ -77,7 +78,7 @@ class BTCPricePredictor:
         self.model = model
         return model
     
-    def train_model(self, X_train, y_train, X_val, y_val, epochs=100, batch_size=16):
+    def train_model(self, X_train, y_train, X_val, y_val, epochs=100, batch_size=32):
         """Train the model"""
         # Create directory for model checkpoints
         os.makedirs('models', exist_ok=True)
@@ -209,4 +210,4 @@ def main():
     print("\nTraining completed. Check 'plots' directory for visualizations.")
 
 if __name__ == "__main__":
-    main()
+    main() 
