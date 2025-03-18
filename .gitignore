@@ -1,0 +1,4 @@
+.env
+binance_history/
+hmm.py
+get_data.py
