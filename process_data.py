@@ -1,5 +1,6 @@
 import pandas as pd
 import pandas_ta as ta
+from sklearn.preprocessing import MinMaxScaler
 
 # Đọc dữ liệu từ file CSV
 file_path = "binance_history/BTCUSDT_1h_complete_20250318.csv"
@@ -48,7 +49,6 @@ df["OBV"] = ta.obv(df["close"], df["volume"])
 
 # MFI (14)
 mfi_data = ta.mfi(df["high"], df["low"], df["close"], df["volume"], length=14)
-print(mfi_data.head())  # Xem dữ liệu trả về
 df["MFI"] = mfi_data.astype(float)
 
 
@@ -59,7 +59,11 @@ selected_columns = ["open", "high", "low", "close", "volume",
                     "VWAP", "EMA_21", "EMA_50", "MACD", "MACD_Signal",
                     "RSI_14", "Stoch_RSI", "BB_Upper", "BB_Middle", "BB_Lower",
                     "ATR", "OBV", "MFI"]
+# Khởi tạo MinMaxScaler với khoảng [-1,1]
+scaler = MinMaxScaler(feature_range=(-1, 1))
 
+# Áp dụng scaler lên các cột
+df[selected_columns] = scaler.fit_transform(df[selected_columns])
 df[selected_columns].to_csv(output_file, index=True)
 
 print(f"Dữ liệu đã được xử lý và lưu vào {output_file}")
