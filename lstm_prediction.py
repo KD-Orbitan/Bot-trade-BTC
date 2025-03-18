@@ -59,9 +59,7 @@ class BTCPricePredictor:
     def build_model(self, input_shape):
         """Build LSTM model"""
         model = Sequential([
-            LSTM(128, return_sequences=True, input_shape=input_shape),
-            Dropout(0.2),
-            LSTM(64, return_sequences=True),
+            LSTM(64, return_sequences=True, input_shape=input_shape),
             Dropout(0.2),
             LSTM(32),
             Dropout(0.2),
@@ -70,7 +68,7 @@ class BTCPricePredictor:
         ])
         
         model.compile(
-            optimizer=Adam(learning_rate=0.001),
+            optimizer=Adam(learning_rate=0.0001),
             loss='mse',
             metrics=['mae']
         )
@@ -195,7 +193,7 @@ def main():
     history = predictor.train_model(
         X_train, y_train,
         X_test, y_test,
-        epochs=100,
+        epochs=50,
         batch_size=32
     )
     
