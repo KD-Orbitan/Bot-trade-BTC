@@ -23,7 +23,8 @@ load_dotenv()
 # Initialize Binance client
 client = Client(
     api_key=os.getenv('BINANCE_API_KEY'),
-    api_secret=os.getenv('BINANCE_API_SECRET')
+    api_secret=os.getenv('BINANCE_API_SECRET'),
+    # testnet=True
 )
 
 def get_symbol_start_time(symbol):
